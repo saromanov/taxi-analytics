@@ -22,15 +22,19 @@ class Hailo:
 		location = geolocator.geocode(location)
 		return self.near(location.longitude, location.latitude)
 
-	def tracking(self, timeitem, interval, location='', longitude=0, latitude=0):
+	def tracking(self, interval, location='', longitude=0, latitude=0):
 		''' Record stat by tracking of available drivers by location
 		'''
 		drivers = []
 		while True:
 			time.sleep(interval)
-			if location is not '':
-				drivers = self.near_location(location)
-			if longitude is not 0 and latitude is not 0:
-				drivers = self.near(longitude, latitude)
+			new_drivers = self._get_near_drivers(location, longitude, latitude)
+			print(new_drivers)
 
-			print(drivers)
+	def _get_near_drivers(self, location, longitude, latitude):
+		drivers = []
+		if location is not '':
+			drivers = self.near_location(location)
+		if longitude is not 0 and latitude is not 0:
+			drivers = self.near(longitude, latitude)
+		return drivers
