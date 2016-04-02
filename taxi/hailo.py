@@ -11,7 +11,7 @@ class Hailo:
 		self.token = token
 
 	def auth(self):
-		return requests.get(URL + '/status/up', headers={'Authorization': self.token})
+		return requests.get(URL + '/status/up', headers={'Authorization': "token " + self.token})
 
 	def near(self, longitude, latitude):
 		response = requests.get(URL + '/drivers/near?latitude={0}&longitude={1}'.format(latitude, longitude), headers={'Authorization': "token " + self.token})
